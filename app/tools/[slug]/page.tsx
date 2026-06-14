@@ -12,8 +12,8 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const tool = getTool(params.slug);
-  if (!tool) return { title: "Tool not found · Nova" };
-  return { title: `${tool.name} · Nova`, description: tool.blurb };
+  if (!tool) return { title: "Tool not found · Aivora" };
+  return { title: `${tool.name} · Aivora`, description: tool.blurb };
 }
 
 export default function ToolPage({ params }: { params: { slug: string } }) {

@@ -11,8 +11,8 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const cat = getCategory(params.slug);
-  if (!cat) return { title: "Category not found · Nova" };
-  return { title: `${cat.name} tools · Nova`, description: cat.blurb };
+  if (!cat) return { title: "Category not found · Aivora" };
+  return { title: `${cat.name} tools · Aivora`, description: cat.blurb };
 }
 
 export default function CategoryPage({ params }: { params: { slug: string } }) {

@@ -15,8 +15,13 @@ function Brand() {
       <span className="grid h-9 w-9 place-items-center rounded-xl bg-[var(--ink)] text-[#fdfcfa] shadow-sm">
         <Sparkles className="h-[18px] w-[18px]" strokeWidth={1.75} />
       </span>
-      <span className="font-display text-[19px] font-semibold tracking-tight">
-        Nova
+      <span className="flex flex-col leading-none">
+        <span className="font-display text-[19px] font-semibold tracking-tight">
+          Aivora
+        </span>
+        <span className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.14em] text-[var(--faint)]">
+          by codepalette
+        </span>
       </span>
     </Link>
   );
@@ -156,7 +161,8 @@ export default function Shell({ children }: { children: React.ReactNode }) {
         </main>
 
         <footer className="border-t border-[var(--border)] px-6 py-7 text-center text-sm text-[var(--faint)]">
-          Nova · {new Date().getFullYear()} · built with Next.js
+          Aivora <span className="text-[var(--muted)]">by codepalette</span> ·{" "}
+          {new Date().getFullYear()}
         </footer>
       </div>
     </div>

@@ -1,4 +1,4 @@
-# Nova — AI Tools Hub
+# Aivora by codepalette — AI Tools Hub
 
 A modern, single-app AI toolkit inspired by multi-category tool directories. **80+ tools** across 8 categories — AI Service, Web Developer, Social Content, Design, Video, E-commerce, Content Writing, and Business Tools — every one powered by Claude and runnable in the browser.
 

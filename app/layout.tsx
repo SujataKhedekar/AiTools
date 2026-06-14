@@ -17,7 +17,7 @@ const display = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Nova — 80+ AI Tools, one premium workspace",
+  title: "Aivora by codepalette — 80+ AI tools, one premium workspace",
   description:
     "A modern AI toolkit: writing, code, social, design, video, e-commerce and business tools — powered by Groq's free tier.",
 };
