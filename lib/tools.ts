@@ -20,11 +20,11 @@ export interface Category {
   name: string;
   emoji: string;
   blurb: string;
-  /** tailwind gradient stops used for accents */
-  from: string;
-  to: string;
-  /** soft text/border tint */
-  tint: string;
+  /** light-theme accent classes (must be literal so Tailwind keeps them) */
+  accent: string; // text color for the hue
+  soft: string; // very light background tint
+  ring: string; // hairline ring/border tint
+  dot: string; // solid swatch (icon bg / dot)
 }
 
 export interface Tool {
@@ -46,72 +46,80 @@ export const CATEGORIES: Category[] = [
     name: "AI Service",
     emoji: "🤖",
     blurb: "Writing, summarizing, translating & assistant builders.",
-    from: "from-indigo-500",
-    to: "to-violet-500",
-    tint: "text-indigo-300",
+    accent: "text-indigo-600",
+    soft: "bg-indigo-50",
+    ring: "ring-indigo-100",
+    dot: "bg-indigo-500",
   },
   {
     id: "web-developer",
     name: "Web Developer",
     emoji: "💻",
     blurb: "Generate, explain, debug and document code.",
-    from: "from-sky-500",
-    to: "to-blue-600",
-    tint: "text-sky-300",
+    accent: "text-sky-600",
+    soft: "bg-sky-50",
+    ring: "ring-sky-100",
+    dot: "bg-sky-500",
   },
   {
     id: "social-content",
     name: "Social Content",
     emoji: "📱",
     blurb: "Captions, hooks, hashtags & platform-ready posts.",
-    from: "from-teal-400",
-    to: "to-emerald-500",
-    tint: "text-teal-300",
+    accent: "text-teal-600",
+    soft: "bg-teal-50",
+    ring: "ring-teal-100",
+    dot: "bg-teal-500",
   },
   {
     id: "design",
     name: "Design",
     emoji: "🎨",
     blurb: "Briefs, palettes, prompts & creative direction.",
-    from: "from-amber-400",
-    to: "to-orange-500",
-    tint: "text-amber-300",
+    accent: "text-amber-600",
+    soft: "bg-amber-50",
+    ring: "ring-amber-100",
+    dot: "bg-amber-500",
   },
   {
     id: "video",
     name: "Video",
     emoji: "🎬",
     blurb: "Scripts, titles, voiceovers & descriptions.",
-    from: "from-rose-500",
-    to: "to-red-500",
-    tint: "text-rose-300",
+    accent: "text-rose-600",
+    soft: "bg-rose-50",
+    ring: "ring-rose-100",
+    dot: "bg-rose-500",
   },
   {
     id: "ecommerce",
     name: "E-commerce",
     emoji: "🛍️",
     blurb: "Product copy, listings & conversion writing.",
-    from: "from-lime-400",
-    to: "to-green-500",
-    tint: "text-lime-300",
+    accent: "text-green-600",
+    soft: "bg-green-50",
+    ring: "ring-green-100",
+    dot: "bg-green-500",
   },
   {
     id: "content-writing",
     name: "Content Writing",
     emoji: "📝",
     blurb: "Blogs, newsletters, PR & long-form drafting.",
-    from: "from-pink-500",
-    to: "to-fuchsia-500",
-    tint: "text-pink-300",
+    accent: "text-pink-600",
+    soft: "bg-pink-50",
+    ring: "ring-pink-100",
+    dot: "bg-pink-500",
   },
   {
     id: "business-tools",
     name: "Business Tools",
     emoji: "📊",
     blurb: "Decks, plans, proposals & operations docs.",
-    from: "from-zinc-400",
-    to: "to-slate-500",
-    tint: "text-zinc-300",
+    accent: "text-slate-600",
+    soft: "bg-slate-100",
+    ring: "ring-slate-200",
+    dot: "bg-slate-500",
   },
 ];
 

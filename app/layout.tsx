@@ -1,28 +1,32 @@
 import type { Metadata } from "next";
+import { Hanken_Grotesk, Fraunces } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
+import Shell from "@/components/Shell";
+
+const sans = Hanken_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const display = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+});
 
 export const metadata: Metadata = {
-  title: "Nova — 80+ AI Tools in One Place",
+  title: "Nova — 80+ AI Tools, one premium workspace",
   description:
     "A modern AI toolkit: writing, code, social, design, video, e-commerce and business tools — powered by Groq's free tier.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className={`${sans.variable} ${display.variable}`}>
       <body>
-        <div className="relative min-h-screen">
-          {/* ambient animated glow */}
-          <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-            <div className="absolute left-1/2 top-[-12rem] h-[34rem] w-[34rem] -translate-x-1/2 rounded-full bg-indigo-600/20 blur-[120px] animate-blob-spin" />
-          </div>
-          <Header />
-          <main className="mx-auto w-full max-w-6xl px-5 pb-24">{children}</main>
-          <footer className="border-t border-white/5 py-8 text-center text-sm text-zinc-500">
-            Built with Next.js + Claude · {new Date().getFullYear()}
-          </footer>
-        </div>
+        <Shell>{children}</Shell>
       </body>
     </html>
   );
