@@ -161,8 +161,8 @@ export default function Shell({ children }: { children: React.ReactNode }) {
         </main>
 
         <footer className="border-t border-[var(--border)] px-6 py-7 text-center text-sm text-[var(--faint)]">
-          <span className="font-medium text-[var(--ink)]">Aivora</span> · built by
-          Harshad · {new Date().getFullYear()}
+          Aivora <span className="text-[var(--muted)]">by codepalette</span> ·{" "}
+          {new Date().getFullYear()}
         </footer>
       </div>
     </div>
