@@ -99,6 +99,11 @@ body {
   box-shadow: 0 0 0 3px rgba(31, 111, 99, 0.14);
 }
 
+/* Uniform thin line weight for every icon (lucide), overriding per-icon props */
+svg.lucide {
+  stroke-width: 1.5px;
+}
+
 /* ---- misc ---- */
 .eyebrow {
   font-size: 11px;
