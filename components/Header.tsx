@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Sparkles } from "lucide-react";
+import ApiKeyManager from "@/components/ApiKeyManager";
 
 export default function Header() {
   return (
@@ -14,21 +15,14 @@ export default function Header() {
           </span>
         </Link>
 
-        <nav className="flex items-center gap-1 text-sm">
+        <nav className="flex items-center gap-2 text-sm">
           <Link
             href="/#tools"
-            className="rounded-lg px-3 py-2 text-zinc-400 transition-colors hover:bg-white/5 hover:text-white"
+            className="hidden rounded-lg px-3 py-2 text-zinc-400 transition-colors hover:bg-white/5 hover:text-white sm:inline-block"
           >
             Browse tools
           </Link>
-          <a
-            href="https://platform.claude.com"
-            target="_blank"
-            rel="noreferrer"
-            className="rounded-lg bg-white/5 px-3.5 py-2 font-medium text-white ring-1 ring-white/10 transition-colors hover:bg-white/10"
-          >
-            Powered by Claude
-          </a>
+          <ApiKeyManager />
         </nav>
       </div>
     </header>

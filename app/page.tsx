@@ -17,8 +17,8 @@ export default function HomePage() {
           </span>
         </h1>
         <p className="mx-auto mt-5 max-w-xl text-pretty text-base text-zinc-400 sm:text-lg">
-          Write, code, design, market and grow — every tool runs on Claude and
-          works right in your browser. No setup, no switching tabs.
+          Write, code, design, market and grow — every tool runs on Google
+          Gemini’s free tier with your own key. No setup, no switching tabs.
         </p>
         <div className="mt-8 flex items-center justify-center gap-3">
           <a

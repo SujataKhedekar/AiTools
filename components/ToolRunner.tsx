@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { Sparkles, Loader2, Copy, Check, RotateCcw } from "lucide-react";
 import type { Tool } from "@/lib/tools";
+import { getApiKey } from "@/lib/apiKey";
 
 export default function ToolRunner({ tool }: { tool: Tool }) {
   const [values, setValues] = useState<Record<string, string>>({});
@@ -17,6 +18,15 @@ export default function ToolRunner({ tool }: { tool: Tool }) {
 
   async function run() {
     setError("");
+
+    const key = getApiKey();
+    if (!key) {
+      setError(
+        "Add your free Gemini API key first — click “API key” at the top right.",
+      );
+      return;
+    }
+
     setOutput("");
     setLoading(true);
     const controller = new AbortController();
@@ -25,7 +35,10 @@ export default function ToolRunner({ tool }: { tool: Tool }) {
     try {
       const res = await fetch("/api/generate", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-gemini-key": key,
+        },
         body: JSON.stringify({ slug: tool.slug, inputs: values }),
         signal: controller.signal,
       });

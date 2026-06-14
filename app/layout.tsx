@@ -5,7 +5,7 @@ import Header from "@/components/Header";
 export const metadata: Metadata = {
   title: "Nova — 80+ AI Tools in One Place",
   description:
-    "A modern AI toolkit: writing, code, social, design, video, e-commerce and business tools — all powered by Claude.",
+    "A modern AI toolkit: writing, code, social, design, video, e-commerce and business tools — powered by Google Gemini's free tier.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
