@@ -4,6 +4,8 @@ import type { Metadata } from "next";
 import { ChevronLeft, ArrowRight } from "lucide-react";
 import { CATEGORIES, getCategory, toolsByCategory } from "@/lib/tools";
 import { categoryIcon } from "@/lib/icons";
+import JsonLd from "@/components/JsonLd";
+import { SITE } from "@/lib/site";
 
 export function generateStaticParams() {
   return CATEGORIES.map((c) => ({ slug: c.id }));
@@ -11,8 +13,21 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const cat = getCategory(params.slug);
-  if (!cat) return { title: "Category not found · Aivora" };
-  return { title: `${cat.name} tools · Aivora`, description: cat.blurb };
+  if (!cat) return { title: "Category not found" };
+  const count = toolsByCategory(cat.id).length;
+  const description = `${count} free AI ${cat.name.toLowerCase()} tools on ${SITE.name}. ${cat.blurb}`;
+  const url = `${SITE.url}/category/${cat.id}`;
+  return {
+    title: `${cat.name} tools`,
+    description,
+    alternates: { canonical: `/category/${cat.id}` },
+    openGraph: {
+      type: "website",
+      title: `${cat.name} AI tools · ${SITE.name}`,
+      description,
+      url,
+    },
+  };
 }
 
 export default function CategoryPage({ params }: { params: { slug: string } }) {
@@ -22,8 +37,37 @@ export default function CategoryPage({ params }: { params: { slug: string } }) {
   const tools = toolsByCategory(cat.id);
   const Icon = categoryIcon(cat.id);
 
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: cat.name,
+        item: `${SITE.url}/category/${cat.id}`,
+      },
+    ],
+  };
+
+  const itemListLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `${cat.name} AI tools`,
+    numberOfItems: tools.length,
+    itemListElement: tools.map((t, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: t.name,
+      url: `${SITE.url}/tools/${t.slug}`,
+    })),
+  };
+
   return (
     <div className="animate-fade-up">
+      <JsonLd data={breadcrumbLd} />
+      <JsonLd data={itemListLd} />
       <Link
         href="/"
         className="mb-6 inline-flex items-center gap-1 text-sm text-[var(--faint)] hover:text-[var(--ink)]"

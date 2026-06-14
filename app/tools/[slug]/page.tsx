@@ -5,6 +5,8 @@ import { ChevronLeft, ArrowRight } from "lucide-react";
 import { TOOLS, getTool, getCategory, toolsByCategory } from "@/lib/tools";
 import { categoryIcon } from "@/lib/icons";
 import ToolRunner from "@/components/ToolRunner";
+import JsonLd from "@/components/JsonLd";
+import { SITE } from "@/lib/site";
 
 export function generateStaticParams() {
   return TOOLS.map((t) => ({ slug: t.slug }));
@@ -12,8 +14,25 @@ export function generateStaticParams() {
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
   const tool = getTool(params.slug);
-  if (!tool) return { title: "Tool not found · Aivora" };
-  return { title: `${tool.name} · Aivora`, description: tool.blurb };
+  if (!tool) return { title: "Tool not found" };
+  const url = `${SITE.url}/tools/${tool.slug}`;
+  const description = `${tool.blurb} Free ${tool.name.toLowerCase()} powered by AI — run it in your browser on ${SITE.name}.`;
+  return {
+    title: tool.name,
+    description,
+    alternates: { canonical: `/tools/${tool.slug}` },
+    openGraph: {
+      type: "website",
+      title: `${tool.name} · ${SITE.name}`,
+      description,
+      url,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${tool.name} · ${SITE.name}`,
+      description,
+    },
+  };
 }
 
 export default function ToolPage({ params }: { params: { slug: string } }) {
@@ -26,8 +45,42 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
     .filter((t) => t.slug !== tool.slug)
     .slice(0, 6);
 
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: cat.name,
+        item: `${SITE.url}/category/${cat.id}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: tool.name,
+        item: `${SITE.url}/tools/${tool.slug}`,
+      },
+    ],
+  };
+
+  const appLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: tool.name,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    description: tool.blurb,
+    url: `${SITE.url}/tools/${tool.slug}`,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    isPartOf: { "@type": "WebSite", name: SITE.name, url: SITE.url },
+  };
+
   return (
     <div className="animate-fade-up">
+      <JsonLd data={breadcrumbLd} />
+      <JsonLd data={appLd} />
       {/* breadcrumb */}
       <div className="mb-6 flex items-center gap-1.5 text-sm text-[var(--faint)]">
         <Link href="/" className="hover:text-[var(--ink)]">
