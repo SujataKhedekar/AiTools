@@ -13,7 +13,7 @@ export const maxDuration = 60;
 const BASE_URL =
   process.env.AI_BASE_URL ||
   "https://generativelanguage.googleapis.com/v1beta/openai/";
-const MODEL = process.env.AI_MODEL || "gemini-2.0-flash";
+const MODEL = process.env.AI_MODEL || "gemini-2.0-flash-lite";
 
 // Build the user message from whatever fields the tool defines.
 function buildUserMessage(tool: Tool, inputs: Record<string, string>) {
@@ -89,12 +89,14 @@ export async function POST(req: Request) {
       } catch (err) {
         let message = "Something went wrong generating the response.";
         if (err instanceof OpenAI.APIError) {
-          message =
-            err.status === 400 || err.status === 401 || err.status === 403
-              ? "Your Gemini API key was rejected. Open “API key” and check it’s correct and active."
-              : err.status === 429
-                ? "Gemini rate limit hit (free tier). Wait a moment and try again."
-                : `AI provider error (${err.status}): ${err.message}`;
+          const detail = (err.message || "").replace(/\s+/g, " ").trim().slice(0, 500);
+          if (err.status === 401 || err.status === 403) {
+            message = `Your Gemini API key was rejected (${err.status}). Check it’s correct and active. ${detail}`;
+          } else if (err.status === 429) {
+            message = `Gemini quota/limit hit (429). ${detail} — usually the free-tier per-minute or per-day quota; check it at aistudio.google.com.`;
+          } else {
+            message = `AI provider error (${err.status}). ${detail}`;
+          }
         }
         controller.enqueue(encoder.encode(`\n\n⚠️ ${message}`));
         controller.close();
