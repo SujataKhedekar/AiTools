@@ -64,7 +64,7 @@ export default function ApiKeyManager() {
           >
             <div className="mb-1 flex items-center justify-between">
               <h2 className="flex items-center gap-2 text-lg font-semibold">
-                <KeyRound className="h-5 w-5 text-indigo-400" /> Your Gemini API key
+                <KeyRound className="h-5 w-5 text-indigo-400" /> Your Groq API key
               </h2>
               <button
                 onClick={() => setOpen(false)}
@@ -74,15 +74,15 @@ export default function ApiKeyManager() {
               </button>
             </div>
             <p className="mb-4 text-sm text-zinc-400">
-              The tools run on Google Gemini’s free tier using <em>your</em> key.
-              It’s stored only in this browser and never sent to anyone but Google.
+              The tools run on Groq’s free tier using <em>your</em> key. It’s
+              stored only in this browser and never sent to anyone but Groq.
             </p>
 
             <input
               type="password"
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
-              placeholder="AIza…"
+              placeholder="gsk_…"
               autoFocus
               className="w-full rounded-xl border border-white/10 bg-black/30 px-3.5 py-2.5 text-sm text-white placeholder:text-zinc-600 focus:border-indigo-500/50 focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
             />
@@ -111,16 +111,16 @@ export default function ApiKeyManager() {
             </div>
 
             <a
-              href="https://aistudio.google.com/app/apikey"
+              href="https://console.groq.com/keys"
               target="_blank"
               rel="noreferrer"
               className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-indigo-300 hover:text-indigo-200"
             >
-              Get a free Gemini key <ExternalLink className="h-3.5 w-3.5" />
+              Get a free Groq key <ExternalLink className="h-3.5 w-3.5" />
             </a>
             <p className="mt-2 text-xs text-zinc-500">
-              Free, no credit card — sign in with Google, click “Create API key”,
-              and paste it above.
+              Free, no credit card — sign in, click “Create API Key”, and paste
+              it above.
             </p>
           </div>
         </div>

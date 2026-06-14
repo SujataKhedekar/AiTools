@@ -1,7 +1,7 @@
 // Bring-your-own-key storage. The key lives only in the visitor's browser
 // (localStorage) and is sent per-request; it never persists on the server.
 
-export const KEY_STORAGE = "nova_gemini_key";
+export const KEY_STORAGE = "nova_ai_key";
 export const KEY_EVENT = "nova-key-change";
 
 export function getApiKey(): string {

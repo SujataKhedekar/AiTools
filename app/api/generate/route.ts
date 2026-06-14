@@ -5,15 +5,13 @@ export const runtime = "nodejs";
 // Allow long generations (e.g. full blog posts / landing pages).
 export const maxDuration = 60;
 
-// Free by default: Google Gemini via its OpenAI-compatible endpoint.
+// Free by default: Groq (OpenAI-compatible, reliable from serverless hosts).
 // The API key comes from the USER (sent per-request as a header, "bring your
-// own key"); we never store or log it. An optional env GEMINI_API_KEY acts as a
+// own key"); we never store or log it. An optional env GROQ_API_KEY acts as a
 // fallback if the site owner wants to provide one.
-// Swap providers by setting AI_BASE_URL / AI_MODEL (e.g. Groq).
-const BASE_URL =
-  process.env.AI_BASE_URL ||
-  "https://generativelanguage.googleapis.com/v1beta/openai/";
-const MODEL = process.env.AI_MODEL || "gemini-2.0-flash-lite";
+// Swap providers by setting AI_BASE_URL / AI_MODEL (e.g. Gemini, OpenAI, etc.).
+const BASE_URL = process.env.AI_BASE_URL || "https://api.groq.com/openai/v1";
+const MODEL = process.env.AI_MODEL || "llama-3.3-70b-versatile";
 
 // Build the user message from whatever fields the tool defines.
 function buildUserMessage(tool: Tool, inputs: Record<string, string>) {
@@ -27,14 +25,14 @@ function buildUserMessage(tool: Tool, inputs: Record<string, string>) {
 
 export async function POST(req: Request) {
   // Prefer the user's own key (BYOK); fall back to an optional owner key.
-  const userKey = req.headers.get("x-gemini-key")?.trim();
-  const API_KEY = userKey || process.env.GEMINI_API_KEY || process.env.AI_API_KEY;
+  const userKey = req.headers.get("x-ai-key")?.trim();
+  const API_KEY = userKey || process.env.GROQ_API_KEY || process.env.AI_API_KEY;
 
   if (!API_KEY) {
     return Response.json(
       {
         error:
-          "No Gemini API key set. Click “API key” at the top and paste your free key from aistudio.google.com to start.",
+          "No API key set. Click “API key” at the top and paste your free Groq key from console.groq.com/keys to start.",
       },
       { status: 401 },
     );
@@ -91,9 +89,9 @@ export async function POST(req: Request) {
         if (err instanceof OpenAI.APIError) {
           const detail = (err.message || "").replace(/\s+/g, " ").trim().slice(0, 500);
           if (err.status === 401 || err.status === 403) {
-            message = `Your Gemini API key was rejected (${err.status}). Check it’s correct and active. ${detail}`;
+            message = `Your API key was rejected (${err.status}). Open “API key” and check it’s correct and active. ${detail}`;
           } else if (err.status === 429) {
-            message = `Gemini quota/limit hit (429). ${detail} — usually the free-tier per-minute or per-day quota; check it at aistudio.google.com.`;
+            message = `Rate limit hit (429). ${detail} — free-tier limit; wait a few seconds and try again.`;
           } else {
             message = `AI provider error (${err.status}). ${detail}`;
           }

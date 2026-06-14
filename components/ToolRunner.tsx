@@ -22,7 +22,7 @@ export default function ToolRunner({ tool }: { tool: Tool }) {
     const key = getApiKey();
     if (!key) {
       setError(
-        "Add your free Gemini API key first — click “API key” at the top right.",
+        "Add your free API key first — click “API key” at the top right.",
       );
       return;
     }
@@ -37,7 +37,7 @@ export default function ToolRunner({ tool }: { tool: Tool }) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-gemini-key": key,
+          "x-ai-key": key,
         },
         body: JSON.stringify({ slug: tool.slug, inputs: values }),
         signal: controller.signal,
