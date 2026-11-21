@@ -4,8 +4,16 @@ import { useRef, useState } from "react";
 import { Sparkles, Loader2, Copy, Check, RotateCcw } from "lucide-react";
 import type { Tool } from "@/lib/tools";
 import { getApiKey } from "@/lib/apiKey";
+import SeoReportRunner from "@/components/SeoReportRunner";
+import CompetitorResearchRunner from "@/components/CompetitorResearchRunner";
 
 export default function ToolRunner({ tool }: { tool: Tool }) {
+  if (tool.slug === "seo-audit-tool") return <SeoReportRunner />;
+  if (tool.slug === "competitor-research") return <CompetitorResearchRunner />;
+  return <GenericToolRunner tool={tool} />;
+}
+
+function GenericToolRunner({ tool }: { tool: Tool }) {
   const [values, setValues] = useState<Record<string, string>>({});
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);

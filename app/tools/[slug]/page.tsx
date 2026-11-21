@@ -122,7 +122,7 @@ export default function ToolPage({ params }: { params: { slug: string } }) {
       <ToolRunner tool={tool} />
 
       {/* related */}
-      {related.length > 0 && (
+      {related.length > 0 && tool.slug !== "seo-audit-tool" && tool.slug !== "competitor-research" && (
         <div className="mt-14">
           <p className="eyebrow mb-4">More {cat.name} tools</p>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

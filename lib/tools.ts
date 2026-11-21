@@ -1,6 +1,6 @@
 // Central registry. Every tool in the app is defined here as data.
-// One dynamic page renders any tool, and one API route runs any tool,
-// by reading the `fields` (the form) and `system` (the Claude instruction).
+// One dynamic page renders any tool, and the generation API reads the fields
+// and system instruction. The URL-based SEO report uses its own API route.
 
 export type FieldType = "text" | "textarea" | "code" | "select" | "number";
 
@@ -427,13 +427,22 @@ export const TOOLS: Tool[] = [
   {
     slug: "seo-audit-tool",
     category: "web-developer",
-    name: "SEO Audit Helper",
-    blurb: "Spot on-page SEO issues & fixes.",
+    name: "SEO Report Generator",
+    blurb: "Paste a page URL to check its metadata, headings, links, images, sitemap, and structured data.",
     isNew: true,
-    fields: [TEXTAREA("page", "Page content / HTML head", "Paste title, meta, headings, or full HTML", 8), TEXT("keyword", "Target keyword", "", false)],
-    instruction: "Audit the page below for on-page SEO.",
-    system:
-      "You are a technical SEO auditor. Review titles, meta, headings, content, and keyword usage. Return a prioritized checklist of issues with concrete fixes.",
+    fields: [TEXT("url", "Page URL", "https://example.com/page")],
+    instruction: "Generate an on-page SEO report for the submitted URL.",
+    system: "This tool fetches the submitted page and returns a structured on-page SEO report.",
+  },
+  {
+    slug: "competitor-research",
+    category: "business-tools",
+    name: "Competitor Research & Discovery",
+    blurb: "Discover verified organic competitors, compare their websites, and identify content opportunities.",
+    fields: [],
+    instruction: "Research actual organic search competitors and compare their public website content.",
+    system: "This tool uses live search results and verified public websites. It does not invent ranking metrics.",
+    isNew: true,
   },
   {
     slug: "ui-component-generator",
