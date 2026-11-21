@@ -445,6 +445,16 @@ export const TOOLS: Tool[] = [
     isNew: true,
   },
   {
+    slug: "image-background-remover",
+    category: "design",
+    name: "Image Background Remover",
+    blurb: "Remove an image background and download a clean transparent PNG.",
+    fields: [],
+    instruction: "Upload an image to remove its background.",
+    system: "This tool sends the uploaded image to the configured background-removal service and returns a transparent PNG.",
+    isNew: true,
+  },
+  {
     slug: "ui-component-generator",
     category: "web-developer",
     name: "UI Component Generator",

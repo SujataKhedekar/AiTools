@@ -6,10 +6,12 @@ import type { Tool } from "@/lib/tools";
 import { getApiKey } from "@/lib/apiKey";
 import SeoReportRunner from "@/components/SeoReportRunner";
 import CompetitorResearchRunner from "@/components/CompetitorResearchRunner";
+import ImageBackgroundRemover from "@/components/ImageBackgroundRemover";
 
 export default function ToolRunner({ tool }: { tool: Tool }) {
   if (tool.slug === "seo-audit-tool") return <SeoReportRunner />;
   if (tool.slug === "competitor-research") return <CompetitorResearchRunner />;
+  if (tool.slug === "image-background-remover") return <ImageBackgroundRemover />;
   return <GenericToolRunner tool={tool} />;
 }
 
