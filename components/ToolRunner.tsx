@@ -18,12 +18,7 @@ export default function ToolRunner({ tool }: { tool: Tool }) {
 
   async function run() {
     setError("");
-
     const key = getApiKey();
-    if (!key) {
-      setError("Add your free API key first — click “API key” at the top right.");
-      return;
-    }
 
     setOutput("");
     setLoading(true);
@@ -33,7 +28,10 @@ export default function ToolRunner({ tool }: { tool: Tool }) {
     try {
       const res = await fetch("/api/generate", {
         method: "POST",
-        headers: { "Content-Type": "application/json", "x-ai-key": key },
+        headers: {
+          "Content-Type": "application/json",
+          ...(key ? { "x-ai-key": key } : {}),
+        },
         body: JSON.stringify({ slug: tool.slug, inputs: values }),
         signal: controller.signal,
       });
@@ -87,23 +85,32 @@ export default function ToolRunner({ tool }: { tool: Tool }) {
         <div className="space-y-4">
           {tool.fields.map((field) => (
             <div key={field.name}>
-              <label className="mb-1.5 block text-sm font-medium text-[var(--ink)]">
+              <label htmlFor={field.name} className="mb-1.5 block text-sm font-medium text-[var(--ink)]">
                 {field.label}
                 {field.required && (
                   <span className="ml-1 text-rose-500">*</span>
                 )}
               </label>
 
-              {field.type === "textarea" ? (
+              {field.type === "textarea" || field.type === "code" ? (
                 <textarea
+                  id={field.name}
                   value={values[field.name] ?? ""}
                   onChange={(e) => set(field.name, e.target.value)}
                   placeholder={field.placeholder}
-                  rows={field.rows ?? 5}
-                  className="field w-full resize-y px-3.5 py-2.5 text-sm"
+                  rows={field.rows ?? (field.type === "code" ? 10 : 5)}
+                  spellCheck={field.type !== "code"}
+                  autoCapitalize={field.type === "code" ? "off" : undefined}
+                  autoComplete={field.type === "code" ? "off" : undefined}
+                  className={`field w-full resize-y px-3.5 py-2.5 text-sm ${
+                    field.type === "code"
+                      ? "bg-[#f7f8fa] font-mono text-[13px] leading-6"
+                      : ""
+                  }`}
                 />
               ) : field.type === "select" ? (
                 <select
+                  id={field.name}
                   value={values[field.name] ?? field.options?.[0] ?? ""}
                   onChange={(e) => set(field.name, e.target.value)}
                   className="field w-full px-3.5 py-2.5 text-sm"
@@ -116,6 +123,7 @@ export default function ToolRunner({ tool }: { tool: Tool }) {
                 </select>
               ) : (
                 <input
+                  id={field.name}
                   type={field.type === "number" ? "number" : "text"}
                   value={values[field.name] ?? ""}
                   onChange={(e) => set(field.name, e.target.value)}

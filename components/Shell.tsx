@@ -16,11 +16,11 @@ function Brand() {
         <Sparkles className="h-[18px] w-[18px]" strokeWidth={1.75} />
       </span>
       <span className="flex flex-col leading-none">
-        <span className="font-display text-[19px] font-semibold tracking-tight">
-          Aivora
+        <span className="text-[17px] font-semibold tracking-tight">
+          AI Tools
         </span>
-        <span className="mt-0.5 text-[10px] font-medium uppercase tracking-[0.14em] text-[var(--faint)]">
-          by codepalette
+        <span className="mt-1 text-[10px] font-medium uppercase tracking-[0.14em] text-[var(--faint)]">
+          Creative workspace
         </span>
       </span>
     </Link>
@@ -81,7 +81,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen">
       {/* desktop sidebar */}
-      <aside className="sticky top-0 hidden h-screen w-[260px] shrink-0 flex-col border-r border-[var(--border)] bg-white/70 px-4 py-5 backdrop-blur-sm lg:flex">
+      <aside className="sticky top-0 hidden h-screen w-[272px] shrink-0 flex-col border-r border-[var(--border)] bg-white/80 px-5 py-6 backdrop-blur-xl lg:flex">
         <div className="px-2">
           <Brand />
         </div>
@@ -89,7 +89,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           <NavLinks />
         </div>
         <a
-          href="https://console.groq.com/keys"
+          href="https://codepalette.co.in/"
           target="_blank"
           rel="noreferrer"
           className="card mt-4 flex items-center justify-between gap-2 px-3.5 py-3 text-sm"
@@ -99,7 +99,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
               Free to run
             </span>
             <span className="text-xs text-[var(--muted)]">
-              Powered by Groq
+              Powered by Codepalette 
             </span>
           </span>
           <ArrowUpRight className="h-4 w-4 text-[var(--faint)]" />
@@ -132,7 +132,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
 
       {/* main column */}
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-[var(--border)] bg-[var(--paper)]/85 px-4 backdrop-blur-md sm:px-6">
+        <header className="sticky top-0 z-30 flex h-[72px] items-center gap-3 border-b border-[var(--border)] bg-white/80 px-4 backdrop-blur-xl sm:px-7">
           <button
             onClick={() => setOpen(true)}
             className="grid h-9 w-9 shrink-0 place-items-center rounded-lg text-[var(--muted)] hover:bg-black/5 lg:hidden"
@@ -152,7 +152,7 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           </div>
         </header>
 
-        <main className="mx-auto w-full max-w-[1180px] flex-1 px-4 py-7 sm:px-6 lg:px-10 lg:py-10">
+        <main className="mx-auto w-full max-w-[1280px] flex-1 px-4 py-7 sm:px-7 lg:px-10 lg:py-11">
           {/* mobile search */}
           <div className="mb-6 sm:hidden">
             <SearchBox />
@@ -160,8 +160,12 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           {children}
         </main>
 
-        <footer className="border-t border-[var(--border)] px-6 py-7 text-center text-sm text-[var(--faint)]">
-          Aivora <span className="text-[var(--muted)]">by codepalette</span> ·{" "}
+        <footer className="border-t border-[var(--border)] bg-white/50 px-6 py-6 text-center text-xs text-[var(--faint)]">
+          Powered by{" "}
+          <span className="font-semibold tracking-wide text-[var(--muted)]">
+            Codepalette
+          </span>
+          <span className="mx-2 text-[var(--border-strong)]">·</span>
           {new Date().getFullYear()}
         </footer>
       </div>

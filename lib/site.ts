@@ -12,12 +12,12 @@ function resolveUrl(): string {
 }
 
 export const SITE = {
-  name: "Aivora",
-  brand: "Aivora by codepalette",
+  name: "AI Tools",
+  brand: "AI Tools by Codepalette",
   url: resolveUrl(),
-  tagline: "80+ AI tools, one premium workspace",
+  tagline: "AI tools, one simple workspace",
   description:
-    "Aivora is a premium workspace of 80+ focused AI tools — AI writing, code, social content, design, video, e-commerce and business tools. Fast, free to run, and works right in your browser.",
+    "A workspace of 80+ focused AI tools for writing, code, social content, design, video, e-commerce and business. Fast, free to run, and works right in your browser.",
   keywords: [
     "AI tools",
     "free AI tools",
@@ -30,6 +30,5 @@ export const SITE = {
     "blog post generator",
     "product description generator",
     "AI toolkit",
-    "Aivora",
   ],
 };

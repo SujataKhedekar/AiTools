@@ -36,7 +36,7 @@ export default function OgImage() {
               borderRadius: 16,
             }}
           >
-            A
+            AI
           </div>
           <div
             style={{
@@ -47,7 +47,7 @@ export default function OgImage() {
               textTransform: "uppercase",
             }}
           >
-            Aivora · by codepalette
+            AI TOOLS · POWERED BY CODEPALETTE
           </div>
         </div>
 

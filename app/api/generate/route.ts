@@ -11,7 +11,7 @@ export const maxDuration = 60;
 // fallback if the site owner wants to provide one.
 // Swap providers by setting AI_BASE_URL / AI_MODEL (e.g. Gemini, OpenAI, etc.).
 const BASE_URL = process.env.AI_BASE_URL || "https://api.groq.com/openai/v1";
-const MODEL = process.env.AI_MODEL || "llama-3.3-70b-versatile";
+const MODEL = process.env.AI_MODEL || "openai/gpt-oss-120b";
 
 // Build the user message from whatever fields the tool defines.
 function buildUserMessage(tool: Tool, inputs: Record<string, string>) {
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
     return Response.json(
       {
         error:
-          "No API key set. Click “API key” at the top and paste your free Groq key from console.groq.com/keys to start.",
+          "No API key is configured. Add GROQ_API_KEY to the server environment, or add your own Groq key using the “API key” button.",
       },
       { status: 401 },
     );

@@ -1,20 +1,14 @@
 import type { Metadata, Viewport } from "next";
-import { Hanken_Grotesk, Fraunces } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import Shell from "@/components/Shell";
 import JsonLd from "@/components/JsonLd";
 import { SITE } from "@/lib/site";
 import { TOOLS } from "@/lib/tools";
 
-const sans = Hanken_Grotesk({
+const poppins = Poppins({
   subsets: ["latin"],
   variable: "--font-sans",
-  display: "swap",
-});
-
-const display = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-display",
   display: "swap",
   weight: ["400", "500", "600", "700"],
 });
@@ -92,7 +86,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   };
 
   return (
-    <html lang="en" className={`${sans.variable} ${display.variable}`}>
+    <html lang="en" className={poppins.variable}>
       <body>
         <JsonLd data={websiteLd} />
         <JsonLd data={appLd} />

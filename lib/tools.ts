@@ -2,7 +2,7 @@
 // One dynamic page renders any tool, and one API route runs any tool,
 // by reading the `fields` (the form) and `system` (the Claude instruction).
 
-export type FieldType = "text" | "textarea" | "select" | "number";
+export type FieldType = "text" | "textarea" | "code" | "select" | "number";
 
 export interface Field {
   name: string;
@@ -133,6 +133,14 @@ const TEXTAREA = (name: string, label: string, placeholder: string, rows = 5, re
   rows,
   required,
 });
+const CODE = (name: string, label: string, placeholder: string, rows = 10): Field => ({
+  name,
+  label,
+  type: "code",
+  placeholder,
+  rows,
+  required: true,
+});
 const TEXT = (name: string, label: string, placeholder: string, required = true): Field => ({
   name,
   label,
@@ -175,7 +183,7 @@ export const TOOLS: Tool[] = [
     category: "ai-service",
     name: "Code Minimizer",
     blurb: "Shrink code while keeping behaviour identical.",
-    fields: [TEXTAREA("code", "Code", "Paste code to minify / simplify", 8), SELECT("lang", "Language", ["Auto", "JavaScript", "TypeScript", "Python", "CSS", "HTML"])],
+    fields: [CODE("code", "Code", "Paste code to minify / simplify"), SELECT("lang", "Language", ["Auto", "JavaScript", "TypeScript", "Python", "CSS", "HTML"])],
     instruction: "Minimize and simplify this code without changing its behaviour.",
     system:
       "You are an expert software engineer. Return the minimized code in a single fenced code block, then a one-line summary of what you changed. Preserve correctness.",
@@ -367,7 +375,7 @@ export const TOOLS: Tool[] = [
     name: "Bug Fixer",
     blurb: "Find and fix the bug, with an explanation.",
     isNew: true,
-    fields: [TEXTAREA("code", "Code", "Paste the buggy code", 8), TEXT("error", "Error / symptom", "e.g. TypeError: undefined is not a function", false)],
+    fields: [CODE("code", "Code", "Paste the buggy code"), TEXT("error", "Error / symptom", "e.g. TypeError: undefined is not a function", false)],
     instruction: "Find and fix the bug in the code below.",
     system:
       "You are a debugging expert. Identify the root cause, return the corrected code in a fenced block, and explain the fix in 2-3 sentences.",
@@ -378,7 +386,7 @@ export const TOOLS: Tool[] = [
     name: "Code Explainer",
     blurb: "Plain-English walkthrough of any code.",
     isNew: true,
-    fields: [TEXTAREA("code", "Code", "Paste code to explain", 8), SELECT("level", "Audience", ["Beginner", "Intermediate", "Expert"])],
+    fields: [CODE("code", "Code", "Paste code to explain"), SELECT("level", "Audience", ["Beginner", "Intermediate", "Expert"])],
     instruction: "Explain the code below.",
     system:
       "You are a patient engineering mentor. Explain what the code does, how it works step by step, and any gotchas — pitched at the requested level.",
@@ -400,7 +408,7 @@ export const TOOLS: Tool[] = [
     name: "JSON Formatter & Fixer",
     blurb: "Format, validate and repair JSON.",
     isNew: true,
-    fields: [TEXTAREA("json", "JSON", "Paste JSON to format or fix", 8)],
+    fields: [CODE("json", "JSON", "Paste JSON to format or fix", 12)],
     instruction: "Format and validate the JSON below, fixing any errors.",
     system:
       "You format and repair JSON. Return valid, pretty-printed JSON in a fenced block. If it was invalid, list the fixes you made below it.",
