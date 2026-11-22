@@ -1,24 +1,10 @@
-# AI Tools — Powered by Codepalette
+# Aivora
 
-A modern, single-app AI toolkit inspired by multi-category tool directories. **80+ tools** across 8 categories — AI Service, Web Developer, Social Content, Design, Video, E-commerce, Content Writing, and Business Tools — powered by Groq and runnable in the browser.
+A Next.js workspace for focused creative and productivity tools.
 
-Built with **Next.js (App Router)**, **Tailwind CSS**, and the **OpenAI TypeScript SDK** with streaming responses.
+Built with the Next.js App Router, TypeScript, and Tailwind CSS.
 
-## How it works (the smart part)
-
-Instead of 80 bespoke pages, the app is **data-driven**:
-
-- [`lib/tools.ts`](lib/tools.ts) — a single registry. Each tool is plain data: its form `fields` and the `system` prompt that configures the AI for that specific tool. Field types include short text, long text, code, dropdown, and number inputs.
-- [`app/tools/[slug]/page.tsx`](app/tools/[slug]/page.tsx) — one dynamic page renders **any** tool from the registry.
-- [`app/api/generate/route.ts`](app/api/generate/route.ts) — one streaming API route runs **any** tool by building the prompt from its fields + the user's input.
-- The **SEO Report Generator** accepts a public page URL and checks metadata, robots directives, Open Graph tags, canonical URL, headings, image alt text, internal links, sitemap availability, and JSON-LD syntax. It suggests editable alt-text drafts from image captions, labels, or filenames, and creates a draft XML sitemap from up to 50 same-site URLs linked by the submitted page; it does not crawl the whole site. Alt drafts must be verified against the actual image. The scanner uses `/api/seo-report` and does not require an AI API key.
-- SEO reports include technical, on-page, content, schema, and Google PageSpeed mobile/desktop findings when available; prioritized recommendations; a task list with local fixed/pending state; and PDF, Excel, and CSV downloads. Google PageSpeed Insights can be used without a key subject to its public quota; set `PAGESPEED_API_KEY` in `.env.local` or Vercel for a higher quota. Unavailable PageSpeed data is shown as unavailable rather than estimated.
-- **Competitor Research & Discovery** analyzes the submitted site's public title, description, headings, service cues, and internal links. With `SERPAPI_KEY` set on the server, it searches Google organic results for the selected market and only lists results whose public HTML pages can be verified. It provides a comparison view plus PDF, Excel, and CSV downloads. Search visibility is not equivalent to rank-tracking data: search volume, keyword difficulty/positions, estimated traffic, backlinks, and domain authority remain unavailable until a ranking/link data API is integrated. Set `SERPAPI_KEY` in `.env.local` or the deployment's server environment; the key is never sent to the browser.
-- **Image Background Remover** accepts PNG, JPEG, and WebP uploads up to 10 MB and returns a downloadable transparent PNG. It uses the remove.bg API through a server-side route; configure `REMOVEBG_API_KEY` in `.env.local` or the deployment environment. Uploaded images are sent to remove.bg for processing, and provider credits/limits apply.
-
-Add a new working tool by appending one object to `TOOLS` — no new files needed.
-
-## Getting started
+## Run locally
 
 ```bash
 npm install
@@ -27,44 +13,43 @@ npm run dev
 
 Open http://localhost:3000.
 
-Click **API key** in the app and add a Groq key from https://console.groq.com/keys.
-The key is stored in your browser and sent to the app's generation endpoint for
-requests. Alternatively, set `GROQ_API_KEY` in `.env.local` for a server-side
-fallback key.
+## VoxAI setup
 
-### Model
+Open **AI Service → VoxAI Voice Studio**. Add a Gemini API key to `.env.local` as `GEMINI_API_KEY` to enable speech generation, voice previews, script enhancement, and voice profile creation. `ELEVENLABS_API_KEY` is optional and enables ElevenLabs voice cloning and synthesis for cloned voices. Both credentials are read only by server routes.
 
-Defaults to `openai/gpt-oss-120b`. The previous default,
-`llama-3.3-70b-versatile`, was deprecated by Groq and shut down on August 16,
-2026. Set `AI_MODEL` and optionally `AI_BASE_URL` in `.env.local` to use another
-OpenAI-compatible provider. See `.env.local.example` for examples.
+WAV downloads work without FFmpeg. MP3 conversion, trimming, and server-side speed/pitch processing require FFmpeg to be installed on the host. Provider availability is shown in VoxAI Settings.
 
-## Project structure
+## AI Summarizer setup
 
-```
-app/
-  page.tsx                 # hero + searchable category grid
-  layout.tsx               # shell, ambient background
-  not-found.tsx
-  category/[slug]/page.tsx # all tools in a category
-  tools/[slug]/page.tsx    # runs a single tool
-  api/generate/route.ts    # streaming Groq endpoint (powers every tool)
-  api/seo-report/route.ts  # URL-based SEO scan
-components/
-  Header.tsx
-  Explorer.tsx             # search + category columns (client)
-  ToolRunner.tsx           # model-specific form + live streaming output (client)
-  SeoReportRunner.tsx      # URL scan form + SEO findings and sitemap draft
-lib/
-  tools.ts                 # the tool + category registry (source of truth)
-  seoReport.ts             # safe public-page fetch and SEO analysis
-```
+Open **Content Writing → AI Summarizer**. It uses the same server-only `GEMINI_API_KEY` for summaries. PDF, DOCX, TXT, and Markdown uploads are processed on the server; scanned image-only PDFs are not OCR-processed.
 
-## Notes
 
-- Inherently non-text tools (image/logo/voice/etc.) produce the most useful
-  *text* artifact — a detailed generation prompt, brief, or spec — so every tool
-  does something real out of the box. Swap their `system` prompts (or wire an
-  image/audio model) to extend them.
-- Responses stream token-by-token from the chat completions API.
-```
+## Tailwind Shade Generator
+
+Open **Design → Tailwind Shade Generator** to build and export color scales. Shade generation runs in the browser and saves local projects in browser storage.
+
+## DeckAI Presentation Maker
+
+Open **Business Tools → DeckAI Presentation Maker** to generate editable presentations, refine slides, and export PDF, HTML, or PowerPoint. AI generation and slide assistance use the server-only `GEMINI_API_KEY`. Email accounts and saved presentations use PostgreSQL when configured; apply `components/deckai/db/schema.sql` to the database first. Without a reachable database, the local fallback store under `/tmp` is used for development and is not durable across deployments. Configure a long random `SESSION_SECRET` for stable signed sessions. Google sign-in requires `NEXT_PUBLIC_FIREBASE_*` web configuration plus `FIREBASE_PROJECT_ID` and valid server credentials for Firebase Admin verification. Web configuration is loaded from environment variables rather than committed in the source. Stripe checkout is enabled by `STRIPE_SECRET_KEY`; without it, plan selection uses the source tool's local/direct plan behavior.
+
+## InstantBG Studio
+
+Open **Design → InstantBG Studio** to remove a photo background, refine the matte, adjust the edge, and export a PNG, WebP, or JPEG. The pixels are processed in the browser. The first neural run downloads the segmentation model and can take longer; the source-image pixels are not sent to an AI API. The app serves the ONNX Runtime Web CPU WebAssembly runtime from `public/onnxruntime-web`.
+
+**License note:** InstantBG uses `@imgly/background-removal`, which is licensed under AGPL-3.0. Review its source-sharing obligations for the intended deployment, or replace it with a commercially licensed alternative before distributing a closed-source hosted product.
+
+## Newsletter Studio
+
+Open **Content Writing → Newsletter Studio** to generate and edit structured newsletter issues, save drafts in browser storage, refine copy and subject lines, and export email-ready HTML. AI generation, subject variations, and block rewrites use the existing server-only `GEMINI_API_KEY`; requests are rate-limited by IP. A missing key returns a clear configuration error.
+
+## AI Landing Page Generator
+
+Open **Web Developer → AI Landing Page Generator** to analyze a public business website, create a landing page strategy and page copy, edit the generated sections, and export HTML, React/Tailwind, Next.js, or Bootstrap projects. AI requests use the server-only `GEMINI_API_KEY`. URL analysis blocks private/internal hosts and rate-limits generation requests. Exported projects include the bundled preview images.
+
+## AI Product Description Writer
+
+Open **E-commerce → AI Product Description Writer** to create product listings from seller details, product photos, or public product pages. It includes a structured product catalog taxonomy, SEO and marketplace copy, draft saving, bulk CSV/XLSX workflows, and PDF/DOCX/XLSX/CSV exports. All Gemini calls use the existing server-only `GEMINI_API_KEY`; product URL analysis validates public DNS/IP targets before fetching.
+
+## Shopify AI Section Builder
+
+Open **E-commerce → Shopify AI Section Builder** to analyze design screenshots and generate Shopify Online Store 2.0 Liquid sections. The workspace includes design analysis, schema and Liquid validation, live preview, refinement, and a local saved-section library. AI generation uses the server-only `GEMINI_API_KEY`.

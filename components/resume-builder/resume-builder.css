@@ -1,0 +1,19 @@
+.resume-builder-root { --font-display: 'Plus Jakarta Sans', system-ui, sans-serif; --font-sans: 'DM Sans', system-ui, sans-serif; --font-mono: 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .01em; }
+.resume-builder-root h1,.resume-builder-root h2,.resume-builder-root h3,.resume-builder-root h4 { text-wrap: balance; }
+.resume-builder-root .font-mono-tabular { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+.resume-builder-root ::-webkit-scrollbar { width: 6px; height: 6px; }
+.resume-builder-root ::-webkit-scrollbar-track { background: transparent; }
+.resume-builder-root ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 9999px; }
+.resume-builder-root ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,.22); }
+@media print {
+  @page { margin: 0; }
+  body:has(.resume-builder-root) { background: #fff !important; color: #000 !important; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body:has(.resume-builder-root) * { visibility: hidden; }
+  body:has(.resume-builder-root) .resume-builder-root #resume-print-root,
+  body:has(.resume-builder-root) .resume-builder-root #resume-print-root *,
+  body:has(.resume-builder-root) .resume-builder-root #cover-letter-print-root,
+  body:has(.resume-builder-root) .resume-builder-root #cover-letter-print-root * { visibility: visible; }
+  body:has(.resume-builder-root) .resume-builder-root #resume-print-root,
+  body:has(.resume-builder-root) .resume-builder-root #cover-letter-print-root { position: absolute; left: 0; top: 0; width: 100% !important; margin: 0 !important; padding: 0 !important; box-shadow: none !important; transform: none !important; }
+  body:has(.resume-builder-root) .resume-builder-root .no-print { display: none !important; }
+}

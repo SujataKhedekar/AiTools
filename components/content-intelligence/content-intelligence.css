@@ -1,0 +1,3 @@
+.content-intelligence-root { --font-sans: 'Public Sans', system-ui, sans-serif; --font-display: 'Plus Jakarta Sans', system-ui, sans-serif; --font-mono: 'JetBrains Mono', ui-monospace, monospace; font-family: var(--font-sans); }
+.content-intelligence-root h1,.content-intelligence-root h2,.content-intelligence-root h3,.content-intelligence-root h4 { font-family: var(--font-display); }
+.content-intelligence-root .tabular-nums { font-variant-numeric: tabular-nums; }

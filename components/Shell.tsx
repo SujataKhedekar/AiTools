@@ -3,22 +3,31 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutGrid, Menu, X, Sparkles, ArrowUpRight } from "lucide-react";
-import { CATEGORIES } from "@/lib/tools";
-import { categoryIcon } from "@/lib/icons";
-import SearchBox from "@/components/SearchBox";
-import ApiKeyManager from "@/components/ApiKeyManager";
+import {
+  ArrowUpRight,
+  BriefcaseBusiness,
+  Bot,
+  Clapperboard,
+  Code2,
+  Hash,
+  LayoutGrid,
+  Menu,
+  Palette,
+  PenLine,
+  ShoppingBag,
+  Sparkles,
+  FileUser,
+  X,
+} from "lucide-react";
 
 function Brand() {
   return (
-    <Link href="/" className="flex items-center gap-2.5">
+    <Link href="/" className="flex items-center gap-2.5" aria-label="Aivora home">
       <span className="grid h-9 w-9 place-items-center rounded-xl bg-[var(--ink)] text-[#fdfcfa] shadow-sm">
         <Sparkles className="h-[18px] w-[18px]" strokeWidth={1.75} />
       </span>
       <span className="flex flex-col leading-none">
-        <span className="text-[17px] font-semibold tracking-tight">
-          AI Tools
-        </span>
+        <span className="text-[17px] font-semibold tracking-tight">Aivora</span>
         <span className="mt-1 text-[10px] font-medium uppercase tracking-[0.14em] text-[var(--faint)]">
           Creative workspace
         </span>
@@ -30,6 +39,16 @@ function Brand() {
 function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = usePathname();
   const homeActive = pathname === "/";
+  const categories = [
+    { name: "AI Service", Icon: Bot, style: "bg-indigo-50 text-indigo-500 ring-indigo-100" },
+    { name: "Web Developer", Icon: Code2, style: "bg-sky-50 text-sky-500 ring-sky-100" },
+    { name: "Social Content", Icon: Hash, style: "bg-teal-50 text-teal-500 ring-teal-100" },
+    { name: "Design", Icon: Palette, style: "bg-amber-50 text-amber-500 ring-amber-100" },
+    { name: "Video", Icon: Clapperboard, style: "bg-rose-50 text-rose-500 ring-rose-100" },
+    { name: "E-commerce", Icon: ShoppingBag, style: "bg-emerald-50 text-emerald-500 ring-emerald-100" },
+    { name: "Content Writing", Icon: PenLine, style: "bg-pink-50 text-pink-500 ring-pink-100" },
+    { name: "Business Tools", Icon: BriefcaseBusiness, style: "bg-slate-100 text-slate-500 ring-slate-200" },
+  ];
 
   return (
     <nav className="flex flex-col gap-0.5">
@@ -43,32 +62,42 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
         }`}
       >
         <LayoutGrid className="h-[18px] w-[18px]" strokeWidth={1.75} />
-        All tools
+        Workspace
       </Link>
-
-      <p className="eyebrow mt-5 mb-1.5 px-3">Categories</p>
-
-      {CATEGORIES.map((cat) => {
-        const Icon = categoryIcon(cat.id);
-        const active = pathname === `/category/${cat.id}`;
-        return (
+      <p className="eyebrow mb-1.5 mt-5 px-3">Categories</p>
+      {categories.map(({ name, Icon, style }) => {
+        const itemClass = "flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-[var(--muted)] transition-colors hover:bg-black/[0.04] hover:text-[var(--ink)]";
+        const item = (
+          <>
+          <span className={`grid h-7 w-7 place-items-center rounded-lg ring-1 ${style}`}>
+            <Icon className="h-[15px] w-[15px]" strokeWidth={1.8} />
+          </span>
+          {name}
+          </>
+        );
+        const categoryHref = name === "Design"
+          ? "/category/design"
+          : name === "E-commerce"
+            ? "/category/e-commerce"
+          : name === "Web Developer"
+            ? "/category/web-developer"
+          : name === "AI Service"
+            ? "/category/ai-service"
+            : name === "Content Writing"
+              ? "/category/content-writing"
+              : name === "Business Tools"
+                ? "/category/business-tools"
+            : null;
+        return categoryHref ? (
           <Link
-            key={cat.id}
-            href={`/category/${cat.id}`}
+            key={name}
+            href={categoryHref}
             onClick={onNavigate}
-            className={`group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors ${
-              active
-                ? "bg-black/[0.05] font-medium text-[var(--ink)]"
-                : "text-[var(--muted)] hover:bg-black/[0.04] hover:text-[var(--ink)]"
-            }`}
-          >
-            <span
-              className={`grid h-7 w-7 place-items-center rounded-lg ${cat.soft} ${cat.accent} ring-1 ${cat.ring}`}
-            >
-              <Icon className="h-[15px] w-[15px]" strokeWidth={2} />
-            </span>
-            {cat.name}
-          </Link>
+            aria-current={pathname === categoryHref ? "page" : undefined}
+            className={`${itemClass} ${pathname === categoryHref ? "bg-black/[0.05] font-medium text-[var(--ink)]" : ""}`}
+          >{item}</Link>
+        ) : (
+          <div key={name} className={itemClass}>{item}</div>
         );
       })}
     </nav>
@@ -77,17 +106,14 @@ function NavLinks({ onNavigate }: { onNavigate?: () => void }) {
 
 export default function Shell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  const isAppTool = pathname === "/tools/qr-studio" || pathname === "/tools/voxai" || pathname === "/tools/ai-summarizer" || pathname === "/tools/tailwind-shade-generator" || pathname === "/tools/deckai" || pathname === "/tools/instantbg" || pathname === "/tools/newsletter" || pathname === "/tools/resume-builder" || pathname === "/tools/typepair" || pathname === "/tools/rembg" || pathname === "/tools/image-to-code" || pathname === "/tools/ai-content-intelligence" || pathname === "/tools/landing-page" || pathname === "/tools/product-description" || pathname === "/tools/shopify-section-builder";
 
   return (
     <div className="flex min-h-screen">
-      {/* desktop sidebar */}
       <aside className="sticky top-0 hidden h-screen w-[272px] shrink-0 flex-col border-r border-[var(--border)] bg-white/80 px-5 py-6 backdrop-blur-xl lg:flex">
-        <div className="px-2">
-          <Brand />
-        </div>
-        <div className="mt-7 flex-1 overflow-y-auto pr-1">
-          <NavLinks />
-        </div>
+        <div className="px-2"><Brand /></div>
+        <div className="mt-7 flex-1 overflow-y-auto pr-1"><NavLinks /></div>
         <a
           href="https://codepalette.co.in/"
           target="_blank"
@@ -95,79 +121,54 @@ export default function Shell({ children }: { children: React.ReactNode }) {
           className="card mt-4 flex items-center justify-between gap-2 px-3.5 py-3 text-sm"
         >
           <span>
-            <span className="block font-medium text-[var(--ink)]">
-              Free to run
-            </span>
-            <span className="text-xs text-[var(--muted)]">
-              Powered by Codepalette 
-            </span>
+            <span className="block font-medium text-[var(--ink)]">Free to run</span>
+            <span className="text-xs text-[var(--muted)]">Powered by Codepalette</span>
           </span>
           <ArrowUpRight className="h-4 w-4 text-[var(--faint)]" />
         </a>
       </aside>
 
-      {/* mobile drawer */}
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden">
-          <div
-            className="absolute inset-0 bg-[var(--ink)]/30 backdrop-blur-sm animate-fade-in"
+          <button
+            type="button"
+            aria-label="Close menu"
+            className="absolute inset-0 h-full w-full bg-[var(--ink)]/30 backdrop-blur-sm animate-fade-in"
             onClick={() => setOpen(false)}
           />
           <aside className="absolute left-0 top-0 h-full w-[280px] border-r border-[var(--border)] bg-[var(--paper)] px-4 py-5 animate-fade-in">
             <div className="flex items-center justify-between px-2">
               <Brand />
               <button
+                type="button"
+                aria-label="Close menu"
                 onClick={() => setOpen(false)}
                 className="grid h-9 w-9 place-items-center rounded-lg text-[var(--muted)] hover:bg-black/5"
-              >
-                <X className="h-5 w-5" />
-              </button>
+              ><X className="h-5 w-5" /></button>
             </div>
-            <div className="mt-6">
-              <NavLinks onNavigate={() => setOpen(false)} />
-            </div>
+            <div className="mt-6"><NavLinks onNavigate={() => setOpen(false)} /></div>
           </aside>
         </div>
       )}
 
-      {/* main column */}
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-30 flex h-[72px] items-center gap-3 border-b border-[var(--border)] bg-white/80 px-4 backdrop-blur-xl sm:px-7">
+        <header className={`sticky top-0 z-30 flex h-[72px] items-center gap-3 border-b border-[var(--border)] bg-white/80 px-4 backdrop-blur-xl sm:px-7 ${isAppTool ? "lg:hidden" : ""}`}>
           <button
+            type="button"
             onClick={() => setOpen(true)}
             className="grid h-9 w-9 shrink-0 place-items-center rounded-lg text-[var(--muted)] hover:bg-black/5 lg:hidden"
             aria-label="Open menu"
-          >
-            <Menu className="h-5 w-5" />
-          </button>
-          <div className="lg:hidden">
-            <Brand />
-          </div>
-
-          <div className="ml-auto flex flex-1 items-center justify-end gap-3">
-            <div className="hidden max-w-md flex-1 sm:block">
-              <SearchBox />
-            </div>
-            <ApiKeyManager />
-          </div>
+          ><Menu className="h-5 w-5" /></button>
+          <div className="lg:hidden"><Brand /></div>
+          <span className="ml-auto text-xs text-[var(--faint)]">Workspace</span>
         </header>
 
-        <main className="mx-auto w-full max-w-[1280px] flex-1 px-4 py-7 sm:px-7 lg:px-10 lg:py-11">
-          {/* mobile search */}
-          <div className="mb-6 sm:hidden">
-            <SearchBox />
-          </div>
+        <main className={isAppTool ? "w-full flex-1 p-0" : "mx-auto flex w-full max-w-[1280px] flex-1 items-center justify-center px-4 py-8 sm:px-7 lg:px-10"}>
           {children}
         </main>
-
-        <footer className="border-t border-[var(--border)] bg-white/50 px-6 py-6 text-center text-xs text-[var(--faint)]">
-          Powered by{" "}
-          <span className="font-semibold tracking-wide text-[var(--muted)]">
-            Codepalette
-          </span>
-          <span className="mx-2 text-[var(--border-strong)]">·</span>
-          {new Date().getFullYear()}
-        </footer>
+        {!isAppTool && <footer className="border-t border-[var(--border)] bg-white/50 px-6 py-6 text-center text-xs text-[var(--faint)]">
+          Aivora · {new Date().getFullYear()}
+        </footer>}
       </div>
     </div>
   );

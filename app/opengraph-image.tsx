@@ -36,7 +36,7 @@ export default function OgImage() {
               borderRadius: 16,
             }}
           >
-            AI
+            A
           </div>
           <div
             style={{
@@ -47,7 +47,7 @@ export default function OgImage() {
               textTransform: "uppercase",
             }}
           >
-            AI TOOLS · POWERED BY CODEPALETTE
+            AIVORA WORKSPACE
           </div>
         </div>
 
@@ -62,7 +62,7 @@ export default function OgImage() {
               maxWidth: 980,
             }}
           >
-            80+ AI tools, one premium workspace
+            A workspace ready for what’s next
           </div>
           <div
             style={{
@@ -72,14 +72,14 @@ export default function OgImage() {
               color: "#5d594f",
             }}
           >
-            Writing · Code · Social · Design · Video · E-commerce · Business
+            Start with one useful idea.
           </div>
         </div>
 
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
           <div style={{ display: "flex", width: 44, height: 6, background: "#1f6f63", borderRadius: 9999 }} />
           <div style={{ display: "flex", fontSize: 24, color: "#76716a" }}>
-            Free to run · streams instantly
+            Built one thoughtful piece at a time
           </div>
         </div>
       </div>

@@ -1,0 +1,9 @@
+.image-to-code-root { --font-sans: 'DM Sans', system-ui, sans-serif; --font-display: 'Plus Jakarta Sans', system-ui, sans-serif; --font-mono: 'JetBrains Mono', ui-monospace, monospace; font-family: var(--font-sans); }
+.image-to-code-root h1,.image-to-code-root h2,.image-to-code-root h3,.image-to-code-root h4,.image-to-code-root h5,.image-to-code-root h6 { font-family: var(--font-display); }
+.image-to-code-root .tabular-nums { font-variant-numeric: tabular-nums; }
+.image-to-code-root ::-webkit-scrollbar { width: 6px; height: 6px; }
+.image-to-code-root ::-webkit-scrollbar-track { background: transparent; }
+.image-to-code-root ::-webkit-scrollbar-thumb { border-radius: 3px; background: rgba(148,163,184,.35); }
+.image-to-code-root ::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,.55); }
+.image-to-code-root .cm-editor { height: 100%; min-height: 320px; font-size: 12px; }
+.image-to-code-root .cm-scroller { overflow: auto; font-family: var(--font-mono); }

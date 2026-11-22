@@ -1,0 +1,348 @@
+import {
+  DesignConfig,
+  FontFamilyOption,
+  ResumeDocument,
+  SectionConfig,
+  TemplateDefinition,
+} from '../types/resume';
+
+export const SAMPLE_PROFILE_PHOTO = '/resume-builder/assets/sample_profile_headshot_1795346262551.jpg';
+
+export const COLOR_PRESETS: Array<{ name: string; hex: string }> = [
+  { name: 'Monochrome Black', hex: '#111827' },
+  { name: 'Navy Blue', hex: '#1E3A5F' },
+  { name: 'Royal Blue', hex: '#1D4ED8' },
+  { name: 'Forest Green', hex: '#14532D' },
+  { name: 'Burgundy', hex: '#7F1D1D' },
+  { name: 'Slate Grey', hex: '#475569' },
+  { name: 'Aivora Gold', hex: '#9A6F1C' },
+];
+
+export const FONT_OPTIONS: Array<{ value: FontFamilyOption; label: string; style: string }> = [
+  { value: 'Plus Jakarta Sans', label: 'Plus Jakarta Sans', style: 'Modern Geometric Sans' },
+  { value: 'DM Sans', label: 'DM Sans', style: 'Clean Neutral Sans' },
+  { value: 'Lora', label: 'Lora', style: 'Editorial Contemporary Serif' },
+  { value: 'Merriweather', label: 'Merriweather', style: 'Classic Formal Serif' },
+  { value: 'Playfair Display', label: 'Playfair Display', style: 'Executive Display Serif' },
+  { value: 'IBM Plex Mono', label: 'IBM Plex Mono', style: 'Technical Monospace' },
+];
+
+export const RESUME_TEMPLATES: TemplateDefinition[] = [
+  {
+    id: 'modern-professional',
+    name: 'Modern Professional',
+    category: 'Modern',
+    description: 'Clean top accent header with balanced hierarchy and crisp contact grid.',
+    defaultLayout: 'single',
+    defaultAccent: '#1E3A5F',
+    defaultFont: 'Plus Jakarta Sans',
+    atsFriendly: true,
+    atsNote: 'High ATS compatibility — linear reading order',
+  },
+  {
+    id: 'minimal-clean',
+    name: 'Minimal Clean',
+    category: 'Minimal',
+    description: 'Generous whitespace, hairline horizontal dividers, and restrained typography.',
+    defaultLayout: 'single',
+    defaultAccent: '#111827',
+    defaultFont: 'DM Sans',
+    atsFriendly: true,
+    atsNote: 'High ATS compatibility — minimal decoration',
+  },
+  {
+    id: 'corporate-executive',
+    name: 'Corporate Executive',
+    category: 'Executive',
+    description: 'Centered classic serif header with double horizontal rules and leadership poise.',
+    defaultLayout: 'single',
+    defaultAccent: '#1E3A5F',
+    defaultFont: 'Playfair Display',
+    atsFriendly: true,
+    atsNote: 'High ATS compatibility — standard executive structure',
+  },
+  {
+    id: 'creative-designer',
+    name: 'Creative Designer',
+    category: 'Creative',
+    description: 'Deep colored side panel paired with expressive typography and clean visual framing.',
+    defaultLayout: 'two-column',
+    defaultAccent: '#7F1D1D',
+    defaultFont: 'Plus Jakarta Sans',
+    atsFriendly: false,
+    atsNote: 'Visual layout — best for direct portfolio submissions',
+  },
+  {
+    id: 'senior-manager',
+    name: 'Senior Manager',
+    category: 'Executive',
+    description: 'Full-width solid header banner with metrics-forward timeline and clear ownership cues.',
+    defaultLayout: 'single',
+    defaultAccent: '#14532D',
+    defaultFont: 'Plus Jakarta Sans',
+    atsFriendly: true,
+    atsNote: 'Good ATS compatibility — structured single column',
+  },
+  {
+    id: 'technical-developer',
+    name: 'Technical Developer',
+    category: 'Technical',
+    description: 'Structured engineering layout with technical skills matrix and prominent project showcase.',
+    defaultLayout: 'single',
+    defaultAccent: '#1D4ED8',
+    defaultFont: 'DM Sans',
+    atsFriendly: true,
+    atsNote: 'High ATS compatibility — engineering keyword friendly',
+  },
+  {
+    id: 'marketing-specialist',
+    name: 'Marketing Specialist',
+    category: 'Creative',
+    description: 'Bold top accent strip with an asymmetric two-column layout highlighting campaign outcomes.',
+    defaultLayout: 'two-column',
+    defaultAccent: '#9A6F1C',
+    defaultFont: 'Plus Jakarta Sans',
+    atsFriendly: false,
+    atsNote: 'Two-column layout — verify with older ATS portals',
+  },
+  {
+    id: 'fresher-resume',
+    name: 'Fresher Resume',
+    category: 'Entry-Level',
+    description: 'Highlights education, projects, and technical competencies cleanly for early-career roles.',
+    defaultLayout: 'single',
+    defaultAccent: '#1E3A5F',
+    defaultFont: 'DM Sans',
+    atsFriendly: true,
+    atsNote: 'High ATS compatibility — entry-level optimized',
+  },
+  {
+    id: 'academic-resume',
+    name: 'Academic Resume',
+    category: 'Academic',
+    description: 'Formal serif CV structure emphasizing degrees, certifications, research, and publications.',
+    defaultLayout: 'single',
+    defaultAccent: '#111827',
+    defaultFont: 'Merriweather',
+    atsFriendly: true,
+    atsNote: 'High ATS compatibility — formal CV structure',
+  },
+  {
+    id: 'two-column-modern',
+    name: 'Two-Column Modern',
+    category: 'Modern',
+    description: 'Tinted left metadata column with a spacious right narrative rail for experience and projects.',
+    defaultLayout: 'two-column',
+    defaultAccent: '#475569',
+    defaultFont: 'DM Sans',
+    atsFriendly: false,
+    atsNote: 'Two-column layout — ideal for human review',
+  },
+  {
+    id: 'elegant-professional',
+    name: 'Elegant Professional',
+    category: 'Executive',
+    description: 'Editorial serif headings paired with airy spacing and refined tonal hairline dividers.',
+    defaultLayout: 'single',
+    defaultAccent: '#7F1D1D',
+    defaultFont: 'Lora',
+    atsFriendly: true,
+    atsNote: 'High ATS compatibility — crisp editorial flow',
+  },
+  {
+    id: 'ats-classic',
+    name: 'ATS-Friendly Classic',
+    category: 'ATS',
+    description: 'Zero graphics, pure single-column, universal headings built strictly for automated parsing.',
+    defaultLayout: 'single',
+    defaultAccent: '#111827',
+    defaultFont: 'DM Sans',
+    atsFriendly: true,
+    atsNote: 'Maximum ATS compatibility — zero decorative graphics',
+  },
+];
+
+export const DEFAULT_SECTIONS: SectionConfig[] = [
+  { id: 'personal', title: 'Personal Information', visible: true },
+  { id: 'summary', title: 'Professional Summary', visible: true },
+  { id: 'experience', title: 'Work Experience', visible: true },
+  { id: 'education', title: 'Education', visible: true },
+  { id: 'skills', title: 'Skills', visible: true },
+  { id: 'projects', title: 'Projects', visible: true },
+  { id: 'certifications', title: 'Certifications', visible: true },
+  { id: 'languages', title: 'Languages', visible: true },
+  { id: 'achievements', title: 'Achievements', visible: true },
+];
+
+export const DEFAULT_DESIGN: DesignConfig = {
+  templateId: 'modern-professional',
+  accentColor: '#1E3A5F',
+  fontFamily: 'Plus Jakarta Sans',
+  baseFontSize: 10,
+  headingScale: 1.3,
+  fontWeight: '400',
+  lineHeight: 1.45,
+  layoutOverride: 'template',
+  sectionSpacing: 'balanced',
+  pageMargins: 'normal',
+  headerAlignment: 'left',
+  dividerStyle: 'hairline',
+  bulletStyle: 'disc',
+  showPhoto: false,
+  showIcons: true,
+  pageSize: 'A4',
+};
+
+export function createId(prefix: string): string {
+  return `${prefix}_${Math.random().toString(36).slice(2, 10)}`;
+}
+
+export function createSampleResume(): ResumeDocument {
+  const now = new Date().toISOString();
+  return {
+    id: createId('res'),
+    title: 'Senior Full-Stack Product Engineer',
+    createdAt: now,
+    updatedAt: now,
+    targetRole: 'Staff Software Engineer',
+    personal: {
+      fullName: 'Elena Vance',
+      jobTitle: 'Senior Full-Stack Product Engineer',
+      email: 'elena.vance@example.com',
+      phone: '+1 (415) 555-0194',
+      location: 'San Francisco, CA',
+      linkedin: 'https://linkedin.com/in/elenavance',
+      portfolio: 'https://elenavance.dev',
+      photoDataUrl: SAMPLE_PROFILE_PHOTO,
+    },
+    summary:
+      'Product-focused Senior Full-Stack Engineer with 7+ years of experience designing resilient TypeScript web platforms, distributed APIs, and enterprise analytics workflows. Track record of reducing page load latency by 48%, leading cross-functional migrations for 120K+ monthly active users, and mentoring engineering teams.',
+    experience: [
+      {
+        id: createId('exp'),
+        company: 'Northstar Systems',
+        role: 'Senior Software Engineer',
+        location: 'San Francisco, CA',
+        startDate: 'Mar 2022',
+        endDate: 'Present',
+        current: true,
+        bullets: [
+          'Architected a multi-tenant React and Node.js analytics suite serving 120,000+ monthly active enterprise users with 99.96% uptime.',
+          'Reduced dashboard p95 query response time from 1.8s to 340ms by introducing PostgreSQL composite indexes and Redis read-through caching.',
+          'Led a 5-engineer migration from legacy REST endpoints to typed API contracts, cutting production schema regressions by 64% over 12 months.',
+          'Mentored 4 mid-level engineers through bi-weekly design reviews and established automated Playwright end-to-end release checks.',
+        ],
+      },
+      {
+        id: createId('exp'),
+        company: 'Verve Financial Technologies',
+        role: 'Full-Stack Software Engineer',
+        location: 'Seattle, WA',
+        startDate: 'Jun 2019',
+        endDate: 'Feb 2022',
+        current: false,
+        bullets: [
+          'Built customer onboarding and document verification workflows in TypeScript and Express, lifting completion rates from 68% to 84%.',
+          'Implemented role-based access control and audit logging across 18 internal operations tools to meet SOC 2 Type II compliance requirements.',
+          'Collaborated with product designers to ship an accessible component library adopted across 6 client-facing web applications.',
+        ],
+      },
+    ],
+    education: [
+      {
+        id: createId('edu'),
+        institution: 'University of Washington',
+        degree: 'Bachelor of Science',
+        field: 'Computer Science',
+        location: 'Seattle, WA',
+        startDate: 'Sep 2015',
+        endDate: 'Jun 2019',
+        gpa: '3.84 / 4.0',
+        highlights: 'Dean’s List (6 quarters), Distributed Systems Capstone Lead',
+      },
+    ],
+    skills: {
+      technical: ['TypeScript', 'React', 'Node.js', 'PostgreSQL', 'GraphQL', 'REST APIs', 'Redis', 'Tailwind CSS'],
+      tools: ['Docker', 'AWS', 'GitHub Actions', 'Playwright', 'Terraform', 'Figma'],
+      soft: ['Technical Leadership', 'System Architecture', 'Cross-Functional Collaboration', 'Mentorship'],
+    },
+    projects: [
+      {
+        id: createId('proj'),
+        name: 'PulseMetrics Open Telemetry Viewer',
+        role: 'Creator & Maintainer',
+        link: 'https://github.com/elenavance/pulsemetrics',
+        startDate: '2023',
+        endDate: 'Present',
+        technologies: ['TypeScript', 'React', 'WebSockets', 'ClickHouse'],
+        description:
+          'Lightweight open-source log and trace explorer enabling small engineering teams to inspect production latency anomalies without heavy observability overhead.',
+        highlights: [
+          'Adopted by 450+ developers with virtualized log streaming capable of rendering 100K rows smoothly.',
+        ],
+      },
+    ],
+    certifications: [
+      {
+        id: createId('cert'),
+        name: 'AWS Certified Solutions Architect — Associate',
+        issuer: 'Amazon Web Services',
+        date: 'Aug 2023',
+        credentialId: 'AWS-SAA-49218',
+        url: '',
+      },
+    ],
+    languages: [
+      { id: createId('lang'), name: 'English', proficiency: 'Native' },
+      { id: createId('lang'), name: 'Spanish', proficiency: 'Conversational' },
+    ],
+    achievements: [
+      {
+        id: createId('ach'),
+        title: 'Engineering Excellence Award',
+        issuer: 'Northstar Systems',
+        date: '2024',
+        description: 'Recognized for zero-downtime migration of billing and reporting pipelines during peak Q4 traffic.',
+      },
+    ],
+    customSections: [],
+    sections: DEFAULT_SECTIONS.map((s) => ({ ...s })),
+    design: { ...DEFAULT_DESIGN },
+  };
+}
+
+export function createBlankResume(title = 'Untitled Resume'): ResumeDocument {
+  const now = new Date().toISOString();
+  return {
+    id: createId('res'),
+    title,
+    createdAt: now,
+    updatedAt: now,
+    targetRole: '',
+    personal: {
+      fullName: '',
+      jobTitle: '',
+      email: '',
+      phone: '',
+      location: '',
+      linkedin: '',
+      portfolio: '',
+      photoDataUrl: '',
+    },
+    summary: '',
+    experience: [],
+    education: [],
+    skills: {
+      technical: [],
+      soft: [],
+      tools: [],
+    },
+    projects: [],
+    certifications: [],
+    languages: [],
+    achievements: [],
+    customSections: [],
+    sections: DEFAULT_SECTIONS.map((s) => ({ ...s })),
+    design: { ...DEFAULT_DESIGN },
+  };
+}

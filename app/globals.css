@@ -119,6 +119,138 @@ svg.lucide {
   color: #2b2823;
 }
 
+.aivora-grid-bg {
+  background-color: #faf9f6;
+  background-image:
+    linear-gradient(to right, rgba(226, 220, 210, 0.42) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(226, 220, 210, 0.42) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+input[type="range"].aivora-slider {
+  appearance: none;
+  height: 6px;
+  border: 1px solid #dedbd2;
+  border-radius: 9999px;
+  background: #eae8e1;
+  outline: none;
+}
+input[type="range"].aivora-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #fff;
+  border-radius: 9999px;
+  background: #181816;
+  box-shadow: 0 1px 3px rgba(23, 22, 20, 0.28);
+  cursor: grab;
+}
+input[type="range"].aivora-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #fff;
+  border-radius: 9999px;
+  background: #181816;
+  box-shadow: 0 1px 3px rgba(23, 22, 20, 0.28);
+  cursor: grab;
+}
+
+/* QR Studio workspace details */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 9999px;
+  background: #e2e8f0;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -5.5px;
+  border: 2px solid #fff;
+  border-radius: 9999px;
+  background: #0f172a;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.25);
+}
+input[type="range"]:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+.bg-checkerboard {
+  background-color: #fff;
+  background-image:
+    linear-gradient(45deg, #e2e8f0 25%, transparent 25%),
+    linear-gradient(-45deg, #e2e8f0 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #e2e8f0 75%),
+    linear-gradient(-45deg, transparent 75%, #e2e8f0 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+.bg-studio-grid {
+  background-color: #f4f6f9;
+  background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.studio-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+.studio-scroll::-webkit-scrollbar-track { background: transparent; }
+.studio-scroll::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 9999px; }
+.studio-scroll::-webkit-scrollbar-thumb:hover { background-color: #94a3b8; }
+
+.font-mono-tabular {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-variant-numeric: tabular-nums;
+}
+input[type="range"].vox-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+input[type="range"].vox-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 9999px;
+  background: rgba(161, 161, 170, 0.25);
+}
+input[type="range"].vox-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  margin-top: -5px;
+  border: 2px solid #fff;
+  border-radius: 9999px;
+  background: #8065f5;
+  transition: transform 150ms ease, background-color 150ms ease;
+}
+input[type="range"].vox-slider:hover::-webkit-slider-thumb {
+  background: #a78bfa;
+  transform: scale(1.1);
+}
+input[type="range"].vox-slider:disabled { opacity: 0.45; cursor: not-allowed; }
+
+@media print {
+  body { background: #fff !important; }
+  .no-print { display: none !important; }
+  .print-only-full { border: none !important; box-shadow: none !important; width: 100% !important; max-width: 100% !important; }
+  body * { visibility: hidden; }
+  #qr-print-area, #qr-print-area * { visibility: visible; }
+  #qr-print-area {
+    position: fixed;
+    inset: 0;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    background: #fff !important;
+  }
+}
+
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -154,4 +286,211 @@ svg.lucide {
 }
 .animate-fade-in {
   animation: fade-in 0.4s ease both;
+}
+
+@layer base {
+  :root {
+    --font-display: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background-color: #ffffff;
+    color: #0f172a;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+  }
+}
+
+/* Official Google Sign-In Material Button Styling */
+.gsi-material-button {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-appearance: none;
+  background-color: #ffffff;
+  background-image: none;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  box-sizing: border-box;
+  color: #0f172a;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  height: 44px;
+  letter-spacing: 0.15px;
+  outline: none;
+  overflow: hidden;
+  padding: 0 16px;
+  position: relative;
+  text-align: center;
+  transition: background-color 0.18s, border-color 0.18s, box-shadow 0.18s;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.gsi-material-button:hover {
+  background-color: #f8fafc;
+  border-color: #94a3b8;
+}
+
+.gsi-material-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.gsi-material-button-content-wrapper {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 100%;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.gsi-material-button-icon {
+  height: 18px;
+  margin-right: 10px;
+  min-width: 18px;
+  width: 18px;
+}
+
+.gsi-material-button-contents {
+  flex-grow: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* InstantBG and newsletter styles are route-scoped to preserve Aivora's shared shell. */
+.instantbg-root { --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-family: var(--font-sans); }
+.newsletter-root { --font-serif: "Fraunces", Georgia, "Times New Roman", serif; --font-sans: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace; font-family: var(--font-sans); color: #171717; }
+.newsletter-root textarea:focus, .newsletter-root input:focus, .newsletter-root select:focus { outline: none; }
+.newsletter-root .editorial-drop-cap::first-letter { font-family: var(--font-serif); font-size: 3.25rem; line-height: .85; float: left; padding-right: .65rem; padding-top: .25rem; font-weight: 500; }
+/* Precision photo-editor range slider */
+input[type="range"].studio-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: #272b35;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"].studio-slider:focus-visible {
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.45);
+}
+
+input[type="range"].studio-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #f8fafc;
+  border: 2px solid #2563eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+  transition: transform 120ms cubic-bezier(0.16, 1, 0.3, 1), background-color 120ms ease;
+}
+
+input[type="range"].studio-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.14);
+  background: #ffffff;
+}
+
+input[type="range"].studio-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #f8fafc;
+  border: 2px solid #2563eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.55);
+  transition: transform 120ms cubic-bezier(0.16, 1, 0.3, 1), background-color 120ms ease;
+}
+
+/* Transparency inspection grids */
+.checker-dark {
+  background-color: #16181e;
+  background-image:
+    linear-gradient(45deg, #21242d 25%, transparent 25%),
+    linear-gradient(-45deg, #21242d 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #21242d 75%),
+    linear-gradient(-45deg, transparent 75%, #21242d 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+}
+
+.checker-light {
+  background-color: #e8eaee;
+  background-image:
+    linear-gradient(45deg, #cfd3dc 25%, transparent 25%),
+    linear-gradient(-45deg, #cfd3dc 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #cfd3dc 75%),
+    linear-gradient(-45deg, transparent 75%, #cfd3dc 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+}
+
+/* Subtle darkroom scrollbar */
+.studio-scroll::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.studio-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.studio-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
+
+.studio-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.newsletter-root textarea:focus,
+.newsletter-root input:focus,
+.newsletter-root select:focus { outline: none; }
+.newsletter-root .editorial-drop-cap::first-letter {
+  font-family: var(--font-serif); font-size: 3.25rem; line-height: .85;
+  float: left; padding-right: .65rem; padding-top: .25rem; font-weight: 500;
+}
+
+/* Custom subtle scrollbars for studio panels */
+.newsletter-root ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.newsletter-root ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.newsletter-root ::-webkit-scrollbar-thumb {
+  background: #D4D4D8;
+  border-radius: 3px;
+}
+
+.newsletter-root ::-webkit-scrollbar-thumb:hover {
+  background: #A1A1AA;
 }

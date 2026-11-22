@@ -1,17 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Poppins } from "next/font/google";
 import "./globals.css";
 import Shell from "@/components/Shell";
 import JsonLd from "@/components/JsonLd";
 import { SITE } from "@/lib/site";
-import { TOOLS } from "@/lib/tools";
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -22,9 +13,9 @@ export const metadata: Metadata = {
   description: SITE.description,
   keywords: SITE.keywords,
   applicationName: SITE.name,
-  authors: [{ name: "codepalette" }],
-  creator: "codepalette",
-  publisher: "codepalette",
+  authors: [{ name: "Aivora" }],
+  creator: "Aivora",
+  publisher: "Aivora",
   alternates: { canonical: "/" },
   robots: {
     index: true,
@@ -68,28 +59,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     description: SITE.description,
     publisher: {
       "@type": "Organization",
-      name: "codepalette",
+      name: "Aivora",
       url: SITE.url,
     },
   };
 
-  const appLd = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: SITE.name,
-    applicationCategory: "BusinessApplication",
-    operatingSystem: "Web",
-    description: SITE.description,
-    url: SITE.url,
-    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-    featureList: `${TOOLS.length} AI tools across 8 categories`,
-  };
-
   return (
-    <html lang="en" className={poppins.variable}>
+    <html lang="en">
       <body>
         <JsonLd data={websiteLd} />
-        <JsonLd data={appLd} />
         <Shell>{children}</Shell>
       </body>
     </html>
